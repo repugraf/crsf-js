@@ -1,0 +1,112 @@
+import type { Add, Range, Subtract } from "./types";
+
+const DYNAMIC_ADDRESS_SPACE_FOR_NAT_START = 0x20;
+const DYNAMIC_ADDRESS_SPACE_FOR_NAT_END = 0x7f;
+
+type NatItemsAmount = Subtract<
+  Add<typeof DYNAMIC_ADDRESS_SPACE_FOR_NAT_END, 1>,
+  typeof DYNAMIC_ADDRESS_SPACE_FOR_NAT_START
+>;
+
+type NatKeysRange = Range<0, NatItemsAmount>;
+type DynamicNatMap = {
+  [K in NatKeysRange as `DYNAMIC_NAT_ADDRESS_${K}`]: number;
+};
+
+const DYNAMIC_NAT_MAP = Object.fromEntries(
+  [
+    ...Array(
+      (DYNAMIC_ADDRESS_SPACE_FOR_NAT_END -
+        DYNAMIC_ADDRESS_SPACE_FOR_NAT_START +
+        1) as NatItemsAmount
+    ),
+  ].map((_, i) => [`DYNAMIC_NAT_ADDRESS_${i}`, DYNAMIC_ADDRESS_SPACE_FOR_NAT_START + i])
+) as DynamicNatMap;
+
+export const SERIAL_SYNC_BYTE = 0xc8;
+
+export const DEVICE_ADDRESS = {
+  BROADCAST_ADDRESS: 0x00,
+  CLOUD: 0x0e,
+  USB_DEVICE: 0x10,
+  BLUETOOTH_MODULE_WIFI: 0x12,
+  WIFI_RECEIVER_MOBILE_GAME_OR_SIMULATOR: 0x13,
+  VIDEO_RECEIVER: 0x14,
+  ...(DYNAMIC_NAT_MAP as DynamicNatMap),
+  OSD_TBS_CORE_PNP_PRO: 0x80,
+  ESC_1: 0x90,
+  ESC_2: 0x91,
+  ESC_3: 0x92,
+  ESC_4: 0x93,
+  ESC_5: 0x94,
+  ESC_6: 0x95,
+  ESC_7: 0x96,
+  ESC_8: 0x97,
+  RESERVED_0: 0x8a,
+  CROSSFIRE_RESERVED_0: 0xb0,
+  CROSSFIRE_RESERVED_1: 0xb2,
+  VOLTAGE_OR_CURRENT_SENSOR: 0xc0,
+  GPS_PNP_PRO_GPS: 0xc2,
+  TBS_BLACK_BOX: 0xc4,
+  FLIGHT_CONTROLLER: 0xc8,
+  RESERVED_1: 0xca,
+  RACE_TAG: 0xcc,
+  VTX: 0xce,
+  REMOTE_CONTROL: 0xea,
+  RC_RECEIVER_CROSSFIRE_RX: 0xec,
+  RC_TRANSMITTER_MODULE_CROSSFIRE_TX: 0xee,
+  RESERVED_2: 0xf0,
+  RESERVED_3: 0xf2,
+} as const;
+
+export const FRAME_TYPE = {
+  UNSUPPORTED_OR_INVALID: 0x00, // used for invalid or unknown frame types
+  GPS: 0x02,
+  GPS_TIME: 0x03,
+  GPS_EXTENDED: 0x06,
+  VARIOMETER_SENSOR: 0x07,
+  BATTERY_SENSOR: 0x08,
+  BAROMETRIC_ALTITUDE_VERTICAL_SPEED: 0x09,
+  AIRSPEED: 0x0a,
+  HEARTBEAT: 0x0b,
+  RPM: 0x0c,
+  TEMP: 0x0d,
+  VOLTAGES: 0x0e,
+  DISCONTINUED: 0x0f, // VTX in ardupilot
+  VTX_TELEMETRY: 0x10,
+  BAROMETER: 0x11,
+  MAGNETOMETER: 0x12,
+  ACCEL_GYRO: 0x13,
+  LINK_STATISTICS: 0x14,
+  RC_CHANNELS_PACKED: 0x16,
+  SUBSET_RC_CHANNELS_PACKED: 0x17,
+  RC_CHANNELS_PACKED_11_BITS: 0x18,
+  RESERVED_CROSSFIRE_0: 0x19,
+  RESERVED_CROSSFIRE_1: 0x1a,
+  RESERVED_CROSSFIRE_2: 0x1b,
+  LINK_STATISTICS_RX: 0x1c,
+  LINK_STATISTICS_TX: 0x1d,
+  ATTITUDE: 0x1e,
+  MAV_LINK_FC: 0x1f,
+  FLIGHT_MODE: 0x21,
+  ESP_NOW_MESSAGE: 0x22,
+  RESERVED: 0x27,
+
+  // extended
+  PARAMETER_PING_DEVICES: 0x28,
+  PARAMETER_DEVICE_INFORMATION: 0x29,
+
+  // found in ardupilot
+  PARAMETER_SETTINGS_ENTRY: 0x2b,
+  PARAMETER_READ: 0x2c,
+  PARAMETER_WRITE: 0x2d,
+  FRAMETYPE_COMMAND: 0x32,
+  AP_CUSTOM_TELEMETRY_LEGACY: 0x7f,
+  AP_CUSTOM_TELEMETRY: 0x80,
+} as const;
+
+export const SYNC_BYTE_VARIANTS = new Set([SERIAL_SYNC_BYTE, ...Object.values(DEVICE_ADDRESS)]);
+
+export const MIN_FRAME_SIZE = 2; // type + crc
+export const MAX_FRAME_SIZE = 62; // per protocol specification
+export const MAX_PAYLOAD_SIZE = MAX_FRAME_SIZE - MIN_FRAME_SIZE;

@@ -1,0 +1,52 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+build/
+dist/
+*.node
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.dylib
+
+# GYP and build artifacts
+Makefile
+*.mk
+*.target.mk
+*.Makefile
+*.xcodeproj
+*.vcxproj
+*.vcxproj.filters
+*.sln
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Testing
+coverage/
+.nyc_output/
+
+# Environment
+.env
+.env.local
+.env.*.local
+
+# TypeScript
+*.tsbuildinfo
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
