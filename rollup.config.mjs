@@ -1,7 +1,4 @@
-import resolve from "@rollup/plugin-node-resolve";
-import commonjs from "@rollup/plugin-commonjs";
 import typescript from "@rollup/plugin-typescript";
-import dts from "rollup-plugin-dts";
 
 const config = [
   {
@@ -15,12 +12,11 @@ const config = [
       },
     ],
     plugins: [
-      resolve(),
-      commonjs(),
       typescript({
         tsconfig: "./tsconfig.json",
         sourceMap: true,
         declaration: true,
+        declarationMap: true,
         declarationDir: "dist/esm/types",
         outDir: "dist/esm",
       }),
@@ -37,26 +33,13 @@ const config = [
       },
     ],
     plugins: [
-      resolve(),
-      commonjs(),
       typescript({
         tsconfig: "./tsconfig.json",
         sourceMap: true,
         declaration: true,
+        declarationMap: true,
         declarationDir: "dist/cjs/types",
         outDir: "dist/cjs",
-      }),
-    ],
-  },
-  {
-    input: "src/index.ts",
-    output: [{ file: "dist/index.d.ts", format: "esm" }],
-    plugins: [
-      dts({
-        compilerOptions: {
-          declaration: true,
-          declarationDir: "dist/types",
-        },
       }),
     ],
   },
