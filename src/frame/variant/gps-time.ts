@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class GPSTime {
   constructor(
     /** uint16 */
@@ -93,3 +92,5 @@ export class GPSTime {
     return new GPSTime(year, month, day, hour, minute, second, millisecond, frame.syncByte);
   }
 }
+
+GPSTime satisfies InternalCrossfireFrameVariant;

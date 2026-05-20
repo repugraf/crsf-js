@@ -1,8 +1,7 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class Reserved {
   #buffer: Uint8Array;
 
@@ -33,3 +32,5 @@ export class Reserved {
     return new Reserved(frame.payload, frame.syncByte);
   }
 }
+
+Reserved satisfies InternalCrossfireFrameVariant;

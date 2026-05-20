@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class Temp {
   constructor(
     /** uint8 - source of the temperature data (e.g., 0 = FC including all ESCs, 1 = Ambient, etc.) */
@@ -75,3 +74,5 @@ export class Temp {
     return new Temp(tempSourceId, temperatures, frame.syncByte);
   }
 }
+
+Temp satisfies InternalCrossfireFrameVariant;

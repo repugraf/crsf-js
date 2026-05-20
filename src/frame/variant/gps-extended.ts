@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class GPSExtended {
   constructor(
     /** uint8 - Current GPS fix quality */
@@ -143,3 +142,5 @@ export class GPSExtended {
     );
   }
 }
+
+GPSExtended satisfies InternalCrossfireFrameVariant;

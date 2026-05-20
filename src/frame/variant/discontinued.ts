@@ -1,8 +1,7 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class Discontinued {
   constructor(public syncByte: number = SERIAL_SYNC_BYTE) {}
 
@@ -27,3 +26,5 @@ export class Discontinued {
     return new Discontinued(frame.syncByte);
   }
 }
+
+Discontinued satisfies InternalCrossfireFrameVariant;

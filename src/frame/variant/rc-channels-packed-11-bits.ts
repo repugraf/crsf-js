@@ -1,6 +1,6 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
 /** Clamps a number to the 0-2047 (11-bit) range */
@@ -52,7 +52,6 @@ const unpackChannels = (payload: Uint8Array): number[] => {
 };
 
 /** 16 channels packed into 22 bytes. Channels are ticks not microseconds */
-@staticImplements<InternalCrossfireFrameVariant>()
 export class RCChannelsPacked11Bits {
   constructor(
     public channel1Ticks: number = 1024,
@@ -123,3 +122,5 @@ export class RCChannelsPacked11Bits {
     return new RCChannelsPacked11Bits(...channels, frame.syncByte);
   }
 }
+
+RCChannelsPacked11Bits satisfies InternalCrossfireFrameVariant;

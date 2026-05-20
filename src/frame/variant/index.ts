@@ -184,8 +184,4 @@ export {
  * Internal types and utilities for Crossfire frame variants
  * Should only be used when creating new frame variants or using `getFrameVariantExtended`
  * */
-export {
-  type InternalCrossfireFrameVariant,
-  type InternalCrossfireFrameVariantInstance,
-  staticImplements,
-} from "../util";
+export type { InternalCrossfireFrameVariant, InternalCrossfireFrameVariantInstance } from "../util";
