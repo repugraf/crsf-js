@@ -10,7 +10,8 @@
   },
   "rules": {
     "typescript/explicit-function-return-type": "off",
-    "typescript/no-explicit-any": "off"
+    "typescript/no-explicit-any": "off",
+    "no-control-regex": "off",
   },
   "ignorePatterns": [
     "**/*.d.ts",
