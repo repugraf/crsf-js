@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 
 /** This frame is discouraged for implementation. */
-@staticImplements<InternalCrossfireFrameVariant>()
 export class SubsetRCChannelsPacked {
   constructor(
     public buffer: Uint8Array,
@@ -26,3 +25,5 @@ export class SubsetRCChannelsPacked {
     return new SubsetRCChannelsPacked(frame.payload, frame.syncByte);
   }
 }
+
+SubsetRCChannelsPacked satisfies InternalCrossfireFrameVariant;

@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class Barometer {
   constructor(
     /** int32 - Pascals */
@@ -60,3 +59,5 @@ export class Barometer {
     return new Barometer(pressurePa, baroTemp, frame.syncByte);
   }
 }
+
+Barometer satisfies InternalCrossfireFrameVariant;

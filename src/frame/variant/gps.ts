@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class GPS {
   constructor(
     /** int32 - degree / 10`000`000 */
@@ -86,3 +85,5 @@ export class GPS {
     return new GPS(latitude, longitude, groundSpeed, heading, altitude, satellites, frame.syncByte);
   }
 }
+
+GPS satisfies InternalCrossfireFrameVariant;

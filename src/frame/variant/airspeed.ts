@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class Airspeed {
   constructor(
     /** uint16 - Airspeed in 0.1 * km/h (hectometers/h) */
@@ -46,3 +45,5 @@ export class Airspeed {
     return new Airspeed(speed, frame.syncByte);
   }
 }
+
+Airspeed satisfies InternalCrossfireFrameVariant;

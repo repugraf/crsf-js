@@ -1,13 +1,6 @@
 import type { FRAME_TYPE } from "../constants";
 import type { CrossfireFrame } from "./frame";
 
-/** Workaround for static interface implementation */
-export function staticImplements<T>() {
-  return <U extends T>(constructor: U) => {
-    constructor;
-  };
-}
-
 /** Used for variant definitions. Shouldn't be used directly by client (unless necessary) */
 export interface InternalCrossfireFrameVariantInstance {
   get frameType(): (typeof FRAME_TYPE)[keyof typeof FRAME_TYPE];

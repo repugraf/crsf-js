@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import type { AnyNumber } from "../../types";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class UnsupportedOrInvalid {
   #frameType: AnyNumber;
   #buffer: Uint8Array;
@@ -33,3 +32,5 @@ export class UnsupportedOrInvalid {
     return new UnsupportedOrInvalid(frame.type, frame.payload, frame.syncByte);
   }
 }
+
+UnsupportedOrInvalid satisfies InternalCrossfireFrameVariant;

@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class BarometricAltitudeVerticalSpeed {
   constructor(
     /** uint16 - Altitude above start (calibration) point */
@@ -62,3 +61,5 @@ export class BarometricAltitudeVerticalSpeed {
     return new BarometricAltitudeVerticalSpeed(altitudePacked, verticalSpeedPacked, frame.syncByte);
   }
 }
+
+BarometricAltitudeVerticalSpeed satisfies InternalCrossfireFrameVariant;

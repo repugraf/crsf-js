@@ -1,14 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import {
-  getUint24BE,
-  setUint24BE,
-  staticImplements,
-  type InternalCrossfireFrameVariant,
-} from "../util";
+import { getUint24BE, setUint24BE, type InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class BatterySensor {
   constructor(
     /** int16 - Voltage (LSB = 10 µV) */
@@ -83,3 +77,5 @@ export class BatterySensor {
     return new BatterySensor(voltage, current, capacityUsed, remaining, frame.syncByte);
   }
 }
+
+BatterySensor satisfies InternalCrossfireFrameVariant;

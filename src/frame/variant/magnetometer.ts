@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class Magnetometer {
   constructor(
     /** int16 - milligauss * 3 */
@@ -67,3 +66,5 @@ export class Magnetometer {
     return new Magnetometer(fieldX, fieldY, fieldZ, frame.syncByte);
   }
 }
+
+Magnetometer satisfies InternalCrossfireFrameVariant;

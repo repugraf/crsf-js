@@ -1,15 +1,9 @@
 import { FRAME_TYPE, MAX_PAYLOAD_SIZE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import {
-  decodeCString,
-  encodeCString,
-  staticImplements,
-  type InternalCrossfireFrameVariant,
-} from "../util";
+import { decodeCString, encodeCString, type InternalCrossfireFrameVariant } from "../util";
 
 const MAX_MODE_STRING_LENGTH = MAX_PAYLOAD_SIZE - 1; // minus null terminator
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class FlightMode {
   constructor(
     public mode: string,
@@ -50,3 +44,5 @@ export class FlightMode {
     return new FlightMode(decodeCString(frame.payload), frame.syncByte);
   }
 }
+
+FlightMode satisfies InternalCrossfireFrameVariant;

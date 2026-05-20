@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class LinkStatisticsRx {
   constructor(
     /** uint8 - RSSI (dBm * -1) */
@@ -80,3 +79,5 @@ export class LinkStatisticsRx {
     return new LinkStatisticsRx(rssiDb, rssiPercent, linkQuality, snr, rfPowerDb, frame.syncByte);
   }
 }
+
+LinkStatisticsRx satisfies InternalCrossfireFrameVariant;

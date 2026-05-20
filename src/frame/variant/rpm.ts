@@ -1,14 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import {
-  getInt24BE,
-  setInt24BE,
-  staticImplements,
-  type InternalCrossfireFrameVariant,
-} from "../util";
+import { getInt24BE, setInt24BE, type InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class RMP {
   constructor(
     /** uint8 - Identifies the source of the RPM data (e.g., 0 = Motor 1, 1 = Motor 2, etc.) */
@@ -82,3 +76,5 @@ export class RMP {
     return new RMP(rpmSourceId, rpmValues, frame.syncByte);
   }
 }
+
+RMP satisfies InternalCrossfireFrameVariant;

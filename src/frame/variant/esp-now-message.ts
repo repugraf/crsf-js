@@ -1,9 +1,8 @@
 import { FRAME_TYPE, SERIAL_SYNC_BYTE } from "../../constants";
 import { CrossfireFrame } from "../frame";
-import { staticImplements, type InternalCrossfireFrameVariant } from "../util";
+import type { InternalCrossfireFrameVariant } from "../util";
 import { UnsupportedOrInvalid } from "./unsupported-or-invalid";
 
-@staticImplements<InternalCrossfireFrameVariant>()
 export class EspNowMessage {
   constructor(
     /** uint8 - Used for Seat Position of the Pilot */
@@ -94,3 +93,5 @@ export class EspNowMessage {
     return new EspNowMessage(val1, val2, val3, val4, freeText, frame.syncByte);
   }
 }
+
+EspNowMessage satisfies InternalCrossfireFrameVariant;
