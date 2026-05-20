@@ -21,6 +21,7 @@
     "prepublishOnly": "npm run build",
     "lint": "oxlint",
     "lint:fix": "oxlint --fix",
+    "typecheck": "tsc",
     "format": "prettier --write \"**/*.{ts,js,json,md}\"",
     "test": "vitest --no-watch"
   },
